@@ -9,21 +9,18 @@
 
     public class IdentityController : ApiController
     {
-        [HttpPost]
-        [Route(nameof(Register))]
+        [HttpPost(nameof(Register))]
         public async Task<ActionResult> Register(
             CreateUserCommand command)
             => await this.Send(command);
 
-        [HttpPost]
-        [Route(nameof(Login))]
+        [HttpPost(nameof(Login))]
         public async Task<ActionResult<LoginOutputModel>> Login(
             LoginUserCommand command)
             => await this.Send(command);
 
-        [HttpPut]
         [Authorize]
-        [Route(nameof(ChangePassword))]
+        [HttpPut(nameof(ChangePassword))]
         public async Task<ActionResult> ChangePassword(
             ChangePasswordCommand command)
             => await this.Send(command);

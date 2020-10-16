@@ -4,19 +4,19 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class BusinessManDetailsQuery : IRequest<BusinessManDetailsOutputModel>
+    public class DetailsBusinessManQuery : IRequest<BusinessManDetailsOutputModel>
     {
         public int Id { get; set; }
 
-        public class BusinessManDetailsQueryHandler : IRequestHandler<BusinessManDetailsQuery, BusinessManDetailsOutputModel>
+        public class DetailsBusinessManQueryHandler : IRequestHandler<DetailsBusinessManQuery, BusinessManDetailsOutputModel>
         {
             private readonly IBusinessManQueryRepository businessManRepository;
 
-            public BusinessManDetailsQueryHandler(IBusinessManQueryRepository dealerRepository)
-                => this.businessManRepository = dealerRepository;
+            public DetailsBusinessManQueryHandler(IBusinessManQueryRepository businessManRepository)
+                => this.businessManRepository = businessManRepository;
 
             public async Task<BusinessManDetailsOutputModel> Handle(
-                BusinessManDetailsQuery request,
+                DetailsBusinessManQuery request,
                 CancellationToken cancellationToken)
                 => await this.businessManRepository.GetDetails(request.Id, cancellationToken);
         }

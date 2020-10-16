@@ -16,29 +16,35 @@
                 .AddScoped<ICurrentUser, CurrentUserService>()
                 .AddSwaggerGen(c =>
                 {
-                    c.SwaggerDoc("v1", new OpenApiInfo { Title = "BCSystem", Version = "v1" });
+                    c.SwaggerDoc(
+                        "v1",
+                        new OpenApiInfo
+                        {
+                            Title = "My Swagger API",
+                            Version = "v1"
+                        });
 
-                    c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
+                    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                     {
-                        Name = "Authorization",
-                        Type = SecuritySchemeType.Http,
-                        Scheme = "basic",
                         In = ParameterLocation.Header,
-                        Description = "Basic Authorization header using the Bearer scheme."
+                        Description = "Please enter into field the word 'Bearer' following by space and JWT",
+                        Name = "Authorization",
+                        Type = SecuritySchemeType.ApiKey
                     });
 
                     c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
-                          new OpenApiSecurityScheme
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
                             {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "basic"
-                                }
-                            },
-                            new string[] {}
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+
                     }
                 });
                 })

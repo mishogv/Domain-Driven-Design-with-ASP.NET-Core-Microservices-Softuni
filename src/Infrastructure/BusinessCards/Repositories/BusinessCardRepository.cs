@@ -1,9 +1,11 @@
 ﻿namespace BCSystem.Infrastructure.BusinessCards.Repositories
 {
     using BCSystem.Application.BusinessCards.BusinessCards;
+    using BCSystem.Application.BusinessCards.BusinessCards.Queries.Common;
     using BCSystem.Domain.BusinessCards.Models.BusinessCards;
     using BCSystem.Domain.BusinessCards.Repositories;
     using BCSystem.Infrastructure.Common.Persistence;
+    using Microsoft.EntityFrameworkCore;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -15,14 +17,30 @@
         {
         }
 
-        public Task<bool> Delete(int id, CancellationToken cancellationToken = default)
+        public async Task<bool> Delete(int id, CancellationToken cancellationToken = default)
         {
-            throw new System.NotImplementedException();
+            var businessCard = await this.Data.BusinessCards.FindAsync(id, cancellationToken);
+
+            if (businessCard == null)
+            {
+                return false;
+            }
+
+            this.Data.BusinessCards.Remove(businessCard);
+
+            await this.Data.SaveChangesAsync(cancellationToken);
+
+            return true;
         }
 
-        public Task<BusinessCard> Find(int id, CancellationToken cancellationToken = default)
+        public async Task<BusinessCard> Find(int id, CancellationToken cancellationToken = default)
+            => await this.Data.BusinessCards.FindAsync(id, cancellationToken);
+
+        public async Task<BusinessCardOutputModel> GetDetails(int id, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var businessCard = await this.Find(id);
+
+            return new BusinessCardOutputModel(id, businessCard.LogoUrl, businessCard.CompanyName, businessCard.Description, businessCard.Address, businessCard.SiteUrl);
         }
     }
 }

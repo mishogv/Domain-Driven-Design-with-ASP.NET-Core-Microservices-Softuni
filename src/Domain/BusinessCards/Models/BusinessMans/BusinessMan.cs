@@ -64,6 +64,9 @@
             this.RaiseEvent(new BusinessCardAddedEvent());
         }
 
+        public void RemoveBusinessCard(int id)
+            => this.businessCards.Remove(this.businessCards.FirstOrDefault(x => x.Id == id));
+
         private void Validate(string name)
             => Guard.ForStringLength<InvalidBusinessManNameException>(
                 name,
