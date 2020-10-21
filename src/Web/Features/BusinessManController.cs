@@ -8,14 +8,12 @@
 
     public class BusinessManController : ApiController
     {
-        [HttpGet]
-        [Route(Id)]
+        [HttpGet(Id)]
         public async Task<ActionResult<BusinessManDetailsOutputModel>> Details(
-            [FromRoute] BusinessManDetailsQuery query)
+            [FromRoute] DetailsBusinessManQuery query)
             => await this.Send(query);
 
-        [HttpPut]
-        [Route(Id)]
+        [HttpPut(Id)]
         public async Task<ActionResult> Edit(
             int id, EditBusinessManCommand command)
             => await this.Send(command.SetId(id));

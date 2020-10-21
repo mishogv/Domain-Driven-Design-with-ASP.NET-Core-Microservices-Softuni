@@ -23,9 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BusinessCards\BusinessCards\Comands\Edit\" />
-    <Folder Include="BusinessCards\BusinessCards\Comands\Delete\" />
-    <Folder Include="BusinessCards\BusinessCards\Queries\Details\" />
     <Folder Include="BusinessCards\BusinessCards\Queries\All\" />
   </ItemGroup>
 
